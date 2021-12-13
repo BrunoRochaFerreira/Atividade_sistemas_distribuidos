@@ -2,7 +2,6 @@ const objeto = localStorage.getItem('email')
 
 let emailAutenticado = ''
 
-// Verificar se usuário autenticado
 if (objeto) {
     emailAutenticado = JSON.parse(objeto).email
 
@@ -12,7 +11,6 @@ if (objeto) {
     window.location.href = 'login.html'
 }
 
-// Adicionar evento para enviar mensagem
 document.querySelector('#form-mensagem').addEventListener('submit', (event) => {
     event.preventDefault()
     const email = document.querySelector('#email')
@@ -40,13 +38,11 @@ document.querySelector('#form-mensagem').addEventListener('submit', (event) => {
     })
 })
 
-// buscar mensagens recebidas
 document.querySelector('#profile-tab').addEventListener('click', async () => {
     const {data} = await axios.get(`http://localhost:8080/mensagens/recebidas/${emailAutenticado}`)
     preencherTabela('recebidas', data)
 })
 
-// buscar mensagens enviadas
 document.querySelector('#contact-tab').addEventListener('click', async () => {
     const {data} = await axios.get(`http://localhost:8080/mensagens/enviadas/${emailAutenticado}`)
     preencherTabela('enviadas', data)
@@ -107,7 +103,6 @@ function preencherTabela(type, conteudo) {
     }
 }
 
-// Desloar do sistema
 document.querySelector('.btn-sair').addEventListener('click', () => {
     localStorage.removeItem('email')
     window.location.href = 'login.html'
